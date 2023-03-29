@@ -1,20 +1,26 @@
 package addressbook;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import java.sql.Date;
 import java.util.Scanner;
 
 public class AddressBookMain {
     public static Scanner scanner = new Scanner(System.in);
-    public static void operations(){
+    public static void operations() throws IOException {
         DatabaseConnection connection = new DatabaseConnection();
         AddressBookRegister bookRegister = new AddressBookRegister();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String flag;
 
         while (true) {
             System.out.println(" ---- Address Book Menu ----\n");
             System.out.println(" 1. Add contacts\n 2. Display contacts\n 3. Edit contacts\n 4. Delete contact\n"
                     + " 5. Add address book\n 6. Search for contact\n 7. View contacts by city or state\n"
-                    + " 8. Count contacts by city or state\n 9. Sort contacts\n 10. File IO\n 11. Display data from database\n"
-                    + " 12. Update contact in database\n 13. Exit");
+                    + " 8. Count contacts by city or state\n 9. Sort contacts\n 10. File IO\n 11. Database operations\n"
+                    + " 12. Exit");
             System.out.print("\n Please enter your choice: ");
             flag = scanner.next();
 
@@ -132,30 +138,44 @@ public class AddressBookMain {
                         }
                     }
                     break;
-
-                //Displaying the data from database
-                case "11": connection.displayDetails();
-                           break;
-                //Update the contact number of the person in database
-                case "12":
-                           System.out.print("Enter first name: ");
-                           String fName = scanner.next();
-                           System.out.print("Enter last name: ");
-                           String lName = scanner.next();
-                           System.out.print("Enter the new phone number: ");
-                           int newPhone = scanner.nextInt();
-                           connection.updateContact(fName,lName,newPhone);
-                           break;
-                case "13":                                               // Exit the program
+                case "11":
+                    int roll = -1;
+                    while (roll !=0){
+                        System.out.println("\nEnter the operation to perform in database :");
+                        System.out.println("\n1. Display details from database\n2. Update contact of person in database\n" +
+                                "3. Retrieve contacts in given time period\n4. Exit");
+                        roll = scanner.nextInt();
+                        switch (roll){
+                            case 1: connection.displayDetails();
+                                    break;
+                            case 2: System.out.print("Enter first name: ");
+                                    String fName = scanner.next();
+                                    System.out.print("Enter last name: ");
+                                    String lName = scanner.next();
+                                    System.out.print("Enter the new phone number: ");
+                                    int newPhone = scanner.nextInt();
+                                    connection.updateContact(fName,lName,newPhone);
+                                    break;
+                            case 3: System.out.print("Enter the start date in format YYYY-MM-DD : ");
+                                    Date startDate = Date.valueOf(bufferedReader.readLine());
+                                    System.out.print("Enter the end date in format YYYY-MM-DD : ");
+                                    Date endDate = Date.valueOf(bufferedReader.readLine());
+                                    connection.getEmployeesByDateRange(startDate,endDate);
+                                    break;
+                            case 4: roll = 0;
+                                    break;
+                        }
+                    }
+                    break;
+                case "12":                                               // Exit the program
                     System.out.println(" Thank you!");
                     return;
-
                 default:                                                 // If in case the user enters invalid choice
                     System.out.println(" Please enter a valid choice: ");
             }
         }
     }
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         System.out.println(" Welcome to the Address Book Program in Java");
         operations();
     }
