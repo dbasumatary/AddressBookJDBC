@@ -13,7 +13,8 @@ public class AddressBookMain {
             System.out.println(" ---- Address Book Menu ----\n");
             System.out.println(" 1. Add contacts\n 2. Display contacts\n 3. Edit contacts\n 4. Delete contact\n"
                     + " 5. Add address book\n 6. Search for contact\n 7. View contacts by city or state\n"
-                    + " 8. Count contacts by city or state\n 9. Sort contacts\n 10. File IO\n 11. Display data from database\n 12. Exit");
+                    + " 8. Count contacts by city or state\n 9. Sort contacts\n 10. File IO\n 11. Display data from database\n"
+                    + " 12. Update contact in database\n 13. Exit");
             System.out.print("\n Please enter your choice: ");
             flag = scanner.next();
 
@@ -135,7 +136,17 @@ public class AddressBookMain {
                 //Displaying the data from database
                 case "11": connection.displayDetails();
                            break;
-                case "12":                                               // Exit the program
+                //Update the contact number of the person in database
+                case "12":
+                           System.out.print("Enter first name: ");
+                           String fName = scanner.next();
+                           System.out.print("Enter last name: ");
+                           String lName = scanner.next();
+                           System.out.print("Enter the new phone number: ");
+                           int newPhone = scanner.nextInt();
+                           connection.updateContact(fName,lName,newPhone);
+                           break;
+                case "13":                                               // Exit the program
                     System.out.println(" Thank you!");
                     return;
 

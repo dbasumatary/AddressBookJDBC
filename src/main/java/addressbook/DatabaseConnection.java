@@ -43,8 +43,37 @@ public class DatabaseConnection {
         }
     }
 
+    //UC17 - Updating the contact info and sync it with database using JDBC Prepared Statement
+    public void updateContact(String firstName, String lastName, int phoneNumber){
+        try {
+            Connection connection = this.getConnection();
+
+            //The query updates the phone_num column of address_book table for the person with specified first_name and last_name.
+            String query = "UPDATE address_book SET phone_num = ? WHERE first_name = ? AND last_name = ?";
+
+            //The PreparedStatement object is used to set the new value of phone_num
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, phoneNumber);
+            statement.setString(2, firstName);
+            statement.setString(3, lastName);
+
+            //the executeUpdate() method returns the number of rows affected by the update.
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Phone Number updated successfully for person with first name " + firstName + " and last name "+lastName);
+            } else {
+                System.out.println("No employee found with the given name ");
+            }
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
         DatabaseConnection databaseConnection = new DatabaseConnection();
+        databaseConnection.updateContact("Harry","Potter",123456);
         databaseConnection.displayDetails();
     }
 }
