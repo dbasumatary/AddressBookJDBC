@@ -97,4 +97,45 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
+
+    //UC19 - Get count of contacts group by city
+    public void getCountOfContactsByCity(String city) {
+        try {
+            Connection con = this.getConnection();
+            int count = 0;
+            String query = "SELECT COUNT(*) FROM address_book WHERE city = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, city);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            rs.close();
+            preparedStatement.close();
+            if (count > 0) System.out.println("The number of contacts in " + city + " is: " + count);
+            else System.out.println("No such city found in the database");
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    //UC19 - Get count of contacts group by state
+    public void getCountOfContactsByState(String state) {
+        try {
+            Connection con = this.getConnection();
+            int count = 0;
+            String query = "SELECT COUNT(*) FROM address_book WHERE state = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, state);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            rs.close();
+            preparedStatement.close();
+            if (count > 0) System.out.println("The number of contacts in " + state + " is: " + count);
+            else System.out.println("No such state found in the database");
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

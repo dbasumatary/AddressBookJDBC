@@ -142,8 +142,9 @@ public class AddressBookMain {
                     int roll = -1;
                     while (roll !=0){
                         System.out.println("\nEnter the operation to perform in database :");
-                        System.out.println("\n1. Display details from database\n2. Update contact of person in database\n" +
-                                "3. Retrieve contacts in given time period\n4. Exit");
+                        System.out.println("1. Display details from database\n2. Update contact of person in database\n" +
+                                "3. Retrieve contacts in given time period\n4. Count of contacts by city\n5. Count of contacts by state\n" +
+                                "6. Exit");
                         roll = scanner.nextInt();
                         switch (roll){
                             case 1: connection.displayDetails();
@@ -162,7 +163,15 @@ public class AddressBookMain {
                                     Date endDate = Date.valueOf(bufferedReader.readLine());
                                     connection.getEmployeesByDateRange(startDate,endDate);
                                     break;
-                            case 4: roll = 0;
+                            case 4: System.out.print("Enter the city: ");
+                                    String cityName = scanner.next();
+                                    connection.getCountOfContactsByCity(cityName);
+                                    break;
+                            case 5: System.out.print("Enter the state: ");
+                                    String stateName = scanner.next();
+                                    connection.getCountOfContactsByState(stateName);
+                                    break;
+                            case 6: roll = 0;
                                     break;
                         }
                     }
