@@ -1,0 +1,22 @@
+[
+  {
+    "firstName": "Sansa",
+    "lastName": "Stark",
+    "address": "Winterfell",
+    "city": "KingsLanding",
+    "state": "Westeros",
+    "email": "sansa@queen.com",
+    "zip": 112344,
+    "phone": 782462
+  },
+  {
+    "firstName": "Stannis",
+    "lastName": "Baratheon",
+    "address": "Westeros",
+    "city": "Dragonstone",
+    "state": "KingsLanding",
+    "email": "stannis@king.com",
+    "zip": 455630,
+    "phone": 983402
+  }
+]

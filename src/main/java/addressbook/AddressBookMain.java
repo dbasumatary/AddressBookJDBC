@@ -95,7 +95,7 @@ public class AddressBookMain {
 
                     System.out.print(" Please type whether to perform read or write: ");
                     String fileOption = scanner.next();
-                    System.out.print(" Please enter which file format to operate in (txt/csv): ");
+                    System.out.print(" Please enter which file format to operate in (txt/csv/json): ");
                     String fileType = scanner.next();
 
                     //Adding into txt files
@@ -105,7 +105,6 @@ public class AddressBookMain {
                         else {
                             System.out.print(" Please enter which address book to write csv file: ");
                             String adBookFile = scanner.next();
-
                             file.writeIntoFile(adBookFile, bookRegister);
                         }
                     }
@@ -118,6 +117,16 @@ public class AddressBookMain {
                             String adBookFile = scanner.next();
 
                             file.writeCSVFile(adBookFile, bookRegister);
+                        }
+                    }
+                    //Adding into json file
+                    else if (fileType.equalsIgnoreCase("json")) {
+                        if (fileOption.equalsIgnoreCase("read") || fileOption.equalsIgnoreCase("r"))
+                            file.readJSONFile();
+                        else {
+                            System.out.print(" Please enter which address book to write in: ");
+                            String adJSONFile = scanner.next();
+                            file.writeJSONFile(adJSONFile, bookRegister);
                         }
                     }
                     break;

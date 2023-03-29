@@ -1,8 +1,11 @@
 package addressbook;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -82,5 +85,33 @@ public class FileHandler {
             e.printStackTrace();
         }
     }
-}
 
+    // Method to read address book data from json file
+    public void readJSONFile() {
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try {
+            FileReader fr = new FileReader("src/main/java/resource/AddressBookJSON.json");
+
+            System.out.println(gson.fromJson(fr, Object.class));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to write address book into json file
+    public void writeJSONFile(String adBookName, AddressBookRegister adBookRegister) {
+
+        AddressBookLogic addBook = adBookRegister.findAddressBook(adBookName);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String output = gson.toJson(addBook.addressBook);
+
+        try {
+            FileWriter fw = new FileWriter("src/main/java/resource/AddressBookJSON.json");
+            fw.write(output);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
