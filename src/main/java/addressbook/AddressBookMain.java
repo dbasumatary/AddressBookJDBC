@@ -3,7 +3,7 @@ package addressbook;
 import java.util.Scanner;
 
 public class AddressBookMain {
-    public static Scanner scan = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
     public static void operations(){
         AddressBookRegister bookRegister = new AddressBookRegister();
         String flag;
@@ -14,7 +14,7 @@ public class AddressBookMain {
                     + " 5. Add address book\n 6. Search for contact\n 7. View contacts by city or state\n"
                     + " 8. Count contacts by city or state\n 9. Sort contacts\n" + " 10. File IO\n 11. Exit");
             System.out.print("\n Please enter your choice: ");
-            flag = scan.next();
+            flag = scanner.next();
 
             switch (flag) {
 
@@ -46,13 +46,13 @@ public class AddressBookMain {
                 // Search for a contact by using city or state
                 case "6":
                     System.out.print(" Please enter the name of the contact you want to find: ");
-                    String name = scan.next();
+                    String name = scanner.next();
 
                     System.out.print(" Please enter to search by city or state(city/state): ");
-                    String choice = scan.next();
+                    String choice = scanner.next();
 
                     System.out.print(" Please enter the location: ");
-                    String location = scan.next();
+                    String location = scanner.next();
 
                     bookRegister.searchCityState(name, location, choice);
                     break;
@@ -60,10 +60,10 @@ public class AddressBookMain {
                 // View all contacts by city or state
                 case "7":
                     System.out.print(" Please enter to view by city or state(city/state): ");
-                    String viewChoice = scan.next();
+                    String viewChoice = scanner.next();
 
                     System.out.print(" Please enter the location: ");
-                    String viewLocation = scan.next();
+                    String viewLocation = scanner.next();
 
                     bookRegister.viewCityState(viewLocation, viewChoice);
                     break;
@@ -71,10 +71,10 @@ public class AddressBookMain {
                 // Count all contacts in a particular city or state
                 case "8":
                     System.out.print(" Please enter to count by city or state(city/state): ");
-                    String countChoice = scan.next();
+                    String countChoice = scanner.next();
 
                     System.out.print(" Please enter the location: ");
-                    String countLocation = scan.next();
+                    String countLocation = scanner.next();
 
                     bookRegister.countContact(countLocation, countChoice);
                     break;
@@ -82,10 +82,10 @@ public class AddressBookMain {
                 // Sort the contacts in an address book by name, city, state or zip
                 case "9":
                     System.out.print(" Please enter which address book to sort: ");
-                    String sortAdBook = scan.next();
+                    String sortAdBook = scanner.next();
 
                     System.out.print(" Please enter to sort by name, city, state or zip: ");
-                    String sortChoice = scan.next();
+                    String sortChoice = scanner.next();
 
                     bookRegister.sortContacts(sortAdBook, sortChoice);
                     break;
@@ -93,16 +93,32 @@ public class AddressBookMain {
                 case "10":                                           // Handling file IO operations
                     FileHandler file = new FileHandler();
 
-                    System.out.print(" Please enter to perform read or write: ");
-                    String fileOption = scan.next();
+                    System.out.print(" Please type whether to perform read or write: ");
+                    String fileOption = scanner.next();
+                    System.out.print(" Please enter which file format to operate in (txt/csv): ");
+                    String fileType = scanner.next();
 
-                    if (fileOption.equalsIgnoreCase("read") || fileOption.equalsIgnoreCase("r"))
-                        file.readFromFile();
-                    else {
-                        System.out.print(" Please enter which address book to write: ");
-                        String adBookFile = scan.next();
+                    //Adding into txt files
+                    if (fileType.equalsIgnoreCase("txt")){
+                        if (fileOption.equalsIgnoreCase("read") || fileOption.equalsIgnoreCase("r"))
+                            file.readFromFile();
+                        else {
+                            System.out.print(" Please enter which address book to write csv file: ");
+                            String adBookFile = scanner.next();
 
-                        file.writeIntoFile(adBookFile, bookRegister);
+                            file.writeIntoFile(adBookFile, bookRegister);
+                        }
+                    }
+                    //Adding into csv files
+                    else if (fileType.equalsIgnoreCase("csv")) {
+                        if (fileOption.equalsIgnoreCase("read") || fileOption.equalsIgnoreCase("r"))
+                            file.readCSVFile();
+                        else {
+                            System.out.print(" Please enter which address book to write csv file: ");
+                            String adBookFile = scanner.next();
+
+                            file.writeCSVFile(adBookFile, bookRegister);
+                        }
                     }
                     break;
 
