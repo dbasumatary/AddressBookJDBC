@@ -3,7 +3,6 @@ package addressbook;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import java.sql.Date;
 import java.util.Scanner;
 
@@ -144,7 +143,7 @@ public class AddressBookMain {
                         System.out.println("\nEnter the operation to perform in database :");
                         System.out.println("1. Display details from database\n2. Update contact of person in database\n" +
                                 "3. Retrieve contacts in given time period\n4. Count of contacts by city\n5. Count of contacts by state\n" +
-                                "6. Exit");
+                                "6. Add new contact in database\n7. Exit");
                         roll = scanner.nextInt();
                         switch (roll){
                             case 1: connection.displayDetails();
@@ -171,7 +170,25 @@ public class AddressBookMain {
                                     String stateName = scanner.next();
                                     connection.getCountOfContactsByState(stateName);
                                     break;
-                            case 6: roll = 0;
+                            case 6: System.out.print("Enter first name: ");
+                                    String firstName = scanner.next();
+                                    System.out.print("Enter last name: ");
+                                    String lastName = scanner.next();
+                                    System.out.print("Enter the address: ");
+                                    String address = scanner.next();
+                                    System.out.print("Enter city name: ");
+                                    String city = scanner.next();
+                                    System.out.print("Enter state name: ");
+                                    String state = scanner.next();
+                                    System.out.print("Enter zip number: ");
+                                    int zip = scanner.nextInt();
+                                    System.out.print("Enter phone number: ");
+                                    int phone = scanner.nextInt();
+                                    System.out.print("Enter email: ");
+                                    String email = scanner.next();
+                                    connection.addNewContact(firstName,lastName,address,city,state,zip,phone,email);
+                                    break;
+                            case 7: roll = 0;
                                     break;
                         }
                     }
