@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class AddressBookMain {
     public static Scanner scanner = new Scanner(System.in);
     public static void operations(){
+        DatabaseConnection connection = new DatabaseConnection();
         AddressBookRegister bookRegister = new AddressBookRegister();
         String flag;
 
@@ -12,7 +13,7 @@ public class AddressBookMain {
             System.out.println(" ---- Address Book Menu ----\n");
             System.out.println(" 1. Add contacts\n 2. Display contacts\n 3. Edit contacts\n 4. Delete contact\n"
                     + " 5. Add address book\n 6. Search for contact\n 7. View contacts by city or state\n"
-                    + " 8. Count contacts by city or state\n 9. Sort contacts\n" + " 10. File IO\n 11. Exit");
+                    + " 8. Count contacts by city or state\n 9. Sort contacts\n 10. File IO\n 11. Display data from database\n 12. Exit");
             System.out.print("\n Please enter your choice: ");
             flag = scanner.next();
 
@@ -131,7 +132,10 @@ public class AddressBookMain {
                     }
                     break;
 
-                case "11":                                               // Exit the program
+                //Displaying the data from database
+                case "11": connection.displayDetails();
+                           break;
+                case "12":                                               // Exit the program
                     System.out.println(" Thank you!");
                     return;
 
